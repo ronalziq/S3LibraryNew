@@ -104,7 +104,7 @@ public class FlowStatesDao {
             dbUtil.closeConnection();}
 
     }
-    }
+
     public Boolean delete(FlowStates states) {
         try {
 
