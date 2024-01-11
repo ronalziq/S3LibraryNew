@@ -76,6 +76,35 @@ public class FlowStatesDao {
             dbUtil.closeConnection();}
 
     }
+
+    public List<FlowStates> getFlowStateLogsForPending(){
+        List<FlowStates> flowStatesList = new ArrayList<>();
+        String queryForPending = "SELECT * FROM "+FlowStates.TABLE_NAME+" WHERE "+ FlowStates.Status+" = 'pending';";
+        try {
+
+            dbUtil = new DataBaseUtil(context);
+            db = dbUtil.openConnection();
+            Cursor cursor = db.rawQuery(queryForPending, null);
+            if(cursor.moveToFirst()){
+                do{
+                    FlowStates states   = FlowStates.ConvertToEntity(cursor);
+                    flowStatesList.add(states);
+
+                }
+                while (cursor.moveToNext());
+            }
+            cursor.close();
+            return flowStatesList;}
+        catch (SQLException e)
+        {
+            //AppLogger.i("DB Exception", e.toString());
+            return flowStatesList;
+        }
+        finally {
+            dbUtil.closeConnection();}
+
+    }
+    }
     public Boolean delete(FlowStates states) {
         try {
 

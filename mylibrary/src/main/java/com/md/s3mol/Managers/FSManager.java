@@ -13,6 +13,9 @@ import com.md.s3mol.Dao.FlowStatesDao;
 import com.md.s3mol.Interfaces.State;
 import com.md.s3mol.Models.FlowStateActions;
 import com.md.s3mol.Models.FlowStates;
+import com.md.s3mol.remote.SyncFlowState;
+
+import java.util.List;
 
 /**
  *
@@ -113,8 +116,20 @@ public class FSManager {
                 stateObject.getParentScreenId());
     }
 
+    /**
+     *
+     * @param syncDataId is updated in the flowState table
+     */
     public void updateSyncDataId(String syncDataId){
         instance.fsdbManager.updateSyncDataId(syncDataId);
+    }
+
+    /**
+     *
+     * @return flowState list from database
+     */
+    public List<FlowStates> getFlowStateList(){
+        return instance.fsdbManager.getFlowStateListFromDatabase(context);
     }
     public String registerStatusAction(String actionName,
                                                         String requestPayload,
@@ -237,6 +252,10 @@ public class FSManager {
                 return false;
             }
 
+        }
+        public List<FlowStates> getFlowStateListFromDatabase(Context context){
+            SyncFlowState syncFlowState = new SyncFlowState(context);
+            return syncFlowState.getFlowStatesList();
         }
     }
 }

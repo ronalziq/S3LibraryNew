@@ -1,4 +1,4 @@
-package com.md.s3mol.models;
+package com.md.s3mol.Models;
 
 public class SystemInfo {
 
